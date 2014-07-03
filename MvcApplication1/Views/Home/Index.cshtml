@@ -1,0 +1,63 @@
+﻿@model IEnumerable<MvcApplication1.Models.News>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    #wrap {
+        width:1140px;
+        margin:0 auto;
+        border:solid 1px red;
+    }
+
+    .items {
+        width:300px;
+        margin:0 8px 14px 0;
+        text-align:left;
+        padding:10px;
+        float:left;
+        display:none; 
+        border: solid 1px #DDD;
+        background: #EEE;
+        -moz-box-shadow:0 1px 3px rgba(0, 0, 0, .3);
+        -webkil-box-shadow:0 1px 3px rgba(0, 0, 0, .3);
+        box-shadow:0 1px 3px rgba(0, 0, 0, .3);
+    }
+
+    .items img {
+        width:280px;
+    }
+</style>
+
+<div id="wrap">
+    <div id="container">
+        @foreach (var item in Model)
+        {
+            <div class="items">
+                <img src="@item.ImgUrl" />
+                <p>@item.Content</p>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/masonry.pkgd.min.js"></script>
+    <script src="~/Scripts/jquery.imagesloaded.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var container = $('#container .items');
+            var masonryContainer = $('#container');
+            container.imagesLoaded(function () {
+                container.fadeIn();
+                masonryContainer.masonry({
+                    itemSelector: '.items',
+                    isAnimated: true
+                });
+            });
+        });
+    </script>
+}
